@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Программы планетария Астрариум: полнокупольные шоу, лекции и наблюдения в телескоп.">
+  <title>Программы — Астрариум</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Шапка -->
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="logo" href="index.html"><span class="logo__mark">✦</span>АСТРАРИУМ</a>
+      <nav class="menu">
+        <a class="nav__link" href="index.html">Главная</a>
+        <a class="nav__link" href="programs.html">Программы</a>
+        <a class="nav__link" href="tickets.html">Билеты</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Заголовок страницы -->
+    <section class="page-head">
+      <div class="container">
+        <p class="eyebrow">Афиша · июнь 2026</p>
+        <h1 class="section__title">Программы и залы</h1>
+        <p class="section__text">
+          Три флагманские программы этого месяца. Листайте афишу стрелками —
+          кнопками на экране или прямо с клавиатуры.
+        </p>
+        <div class="hints">
+          <span class="hints__item"><kbd>←</kbd><kbd>→</kbd> листать афишу</span>
+          <span class="hints__item"><kbd>Enter</kbd> подробнее о программе</span>
+          <span class="hints__item"><kbd>Esc</kbd> закрыть окно</span>
+          <span class="hints__item"><kbd>Мышь</kbd> наведите на карточку зала</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Слайдер афиши (слайды создаёт JavaScript) -->
+    <section class="section" style="padding-top: 28px;">
+      <div class="container">
+        <div class="poster" id="poster"></div>
+
+        <div class="poster-controls">
+          <button class="arrow" id="prevBtn" type="button" aria-label="Предыдущая программа">←</button>
+          <div class="dots" id="dots"></div>
+          <button class="arrow" id="nextBtn" type="button" aria-label="Следующая программа">→</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Залы: карточки с 3D-наклоном за курсором -->
+    <section class="section" id="halls">
+      <div class="container">
+        <div class="section__head">
+          <p class="eyebrow">Пространства</p>
+          <h2 class="section__title">Три зала под одной крышей</h2>
+          <p class="section__text">Наведите курсор на карточку и подвигайте мышью — карточка наклонится вслед за ней.</p>
+        </div>
+
+        <div class="halls">
+          <article class="hall-card">
+            <span class="hall-card__icon">🔭</span>
+            <h3 class="hall-card__title">Большой купол</h3>
+            <p class="hall-card__text">Главный зал с 16-метровым экраном-куполом и креслами-лежаками. Здесь идут полнокупольные шоу.</p>
+            <span class="hall-card__cap">120 мест</span>
+          </article>
+          <article class="hall-card">
+            <span class="hall-card__icon">🌠</span>
+            <h3 class="hall-card__title">Малый зал</h3>
+            <p class="hall-card__text">Камерные лекции астрономов, детские занятия и встречи клуба наблюдателей.</p>
+            <span class="hall-card__cap">40 мест</span>
+          </article>
+          <article class="hall-card">
+            <span class="hall-card__icon">✨</span>
+            <h3 class="hall-card__title">Открытая терраса</h3>
+            <p class="hall-card__text">Площадка на крыше с шестью телескопами. Работает в ясные вечера после сеансов.</p>
+            <span class="hall-card__cap">6 телескопов</span>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Модальное окно «Подробнее о программе» (наполняется из JavaScript) -->
+  <div class="modal" id="programModal">
+    <div class="modal__card">
+      <button class="modal__close" id="programClose" type="button" aria-label="Закрыть">✕</button>
+      <p class="modal__tag" id="modalTag"></p>
+      <h3 class="modal__title" id="modalTitle"></h3>
+      <p class="modal__text" id="modalText"></p>
+      <div class="slide__meta" id="modalMeta"></div>
+      <a class="btn" href="tickets.html">Купить билет</a>
+    </div>
+  </div>
+
+  <!-- Подвал -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>© 2026 Астрариум · городской планетарий</span>
+      <span>Итоговая работа по дисциплине «JavaScript DOM»</span>
+    </div>
+  </footer>
+
+  <script src="js/common.js"></script>
+  <script src="js/programs.js"></script>
+</body>
+</html>

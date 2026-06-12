@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Билеты в планетарий Астрариум: онлайн-бронирование сеансов.">
+  <title>Билеты — Астрариум</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Шапка -->
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="logo" href="index.html"><span class="logo__mark">✦</span>АСТРАРИУМ</a>
+      <nav class="menu">
+        <a class="nav__link" href="index.html">Главная</a>
+        <a class="nav__link" href="programs.html">Программы</a>
+        <a class="nav__link" href="tickets.html">Билеты</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Заголовок страницы -->
+    <section class="page-head">
+      <div class="container">
+        <p class="eyebrow">Бронирование</p>
+        <h1 class="section__title">Билеты на сеансы</h1>
+        <p class="section__text">
+          Заполните форму — стоимость пересчитается на лету. А пока выбираете сеанс,
+          нарисуйте своё созвездие на тренажёре справа.
+        </p>
+        <div class="hints">
+          <span class="hints__item"><kbd>Мышь</kbd> зажмите и ведите по тёмному полю — рисуйте звёзды</span>
+          <span class="hints__item"><kbd>Backspace</kbd> убрать последнюю звезду</span>
+          <span class="hints__item"><kbd>Esc</kbd> очистить рисунок / закрыть окно</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top: 28px;">
+      <div class="container tickets-grid">
+
+        <!-- Форма бронирования -->
+        <div class="panel">
+          <h2 class="panel__title">Бронирование билетов</h2>
+          <p class="panel__sub">Поля подсвечиваются при фокусе и проверяются, когда вы переходите к следующему.</p>
+
+          <form class="form" name="order" id="orderForm" novalidate>
+            <div class="field" id="fieldName">
+              <label class="field__label" for="name">Ваше имя</label>
+              <input type="text" id="name" name="name" placeholder="Юрий" autocomplete="name">
+              <span class="field__msg" id="nameMsg"></span>
+            </div>
+
+            <div class="field" id="fieldEmail">
+              <label class="field__label" for="email">Эл. почта</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email">
+              <span class="field__msg" id="emailMsg"></span>
+            </div>
+
+            <div class="field" id="fieldProgram">
+              <label class="field__label" for="program">Программа</label>
+              <select id="program" name="program">
+                <option value="700" data-title="Путешествие к краю Вселенной">Путешествие к краю Вселенной — 700 ₽</option>
+                <option value="650" data-title="Марс: первая высадка">Марс: первая высадка — 650 ₽</option>
+                <option value="900" data-title="Сатурн и его кольца">Сатурн и его кольца (с телескопами) — 900 ₽</option>
+              </select>
+            </div>
+
+            <div class="field" id="fieldQty">
+              <label class="field__label" for="qty">Количество билетов</label>
+              <input type="number" id="qty" name="qty" value="2" min="1" max="10" step="1">
+              <span class="field__msg" id="qtyMsg"></span>
+            </div>
+
+            <div class="field" id="fieldWish">
+              <label class="field__label" for="wish">Пожелания (необязательно)</label>
+              <textarea id="wish" name="wish" maxlength="200" placeholder="Например: места ближе к центру купола"></textarea>
+              <span class="field__count" id="wishCount">Осталось символов: 200</span>
+            </div>
+
+            <div class="form__total">
+              <span>Итого к оплате</span>
+              <strong id="totalPrice">1 400 ₽</strong>
+            </div>
+
+            <button class="btn" type="submit">Забронировать</button>
+          </form>
+        </div>
+
+        <!-- Рисовалка созвездий -->
+        <div class="panel">
+          <h2 class="panel__title">Нарисуйте своё созвездие</h2>
+          <p class="panel__sub">Зажмите кнопку мыши и ведите по полю — за курсором останется звёздный след.</p>
+
+          <div class="pad" id="pad"></div>
+
+          <div class="pad-meta">
+            <span class="pad-count">Звёзд в созвездии: <strong id="starCount">0</strong></span>
+            <button class="btn btn--ghost" id="clearPad" type="button">Очистить поле</button>
+          </div>
+
+          <div class="hints">
+            <span class="hints__item"><kbd>Backspace</kbd> убрать звезду</span>
+            <span class="hints__item"><kbd>Esc</kbd> очистить всё</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Модальное окно успешной брони (наполняется из JavaScript) -->
+  <div class="modal" id="doneModal">
+    <div class="modal__card">
+      <button class="modal__close" id="doneClose" type="button" aria-label="Закрыть">✕</button>
+      <p class="modal__tag">Бронь принята</p>
+      <h3 class="modal__title">До встречи под куполом! 🌌</h3>
+      <p class="modal__text" id="doneText"></p>
+    </div>
+  </div>
+
+  <!-- Подвал -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>© 2026 Астрариум · городской планетарий</span>
+      <span>Итоговая работа по дисциплине «JavaScript DOM»</span>
+    </div>
+  </footer>
+
+  <script src="js/common.js"></script>
+  <script src="js/tickets.js"></script>
+</body>
+</html>
